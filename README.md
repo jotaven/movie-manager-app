@@ -25,7 +25,7 @@ O Movie Manager permite que o usuário:
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/movie_manager.git
+   git clone https://github.com/jotaven/movie_manager.git
    cd movie_manager
    ```
 
