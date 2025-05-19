@@ -30,7 +30,7 @@ class Movie {
     required this.year,
   }) : assert(rating >= 0 && rating <= 5, 'Avaliação deve ser entre 0 e 5');
 
-  static String _ageRatingToString(AgeRating rating) {
+  static String ageRatingToString(AgeRating rating) {
     switch(rating) {
       case AgeRating.livre: return 'Livre';
       case AgeRating.age10: return '10';
@@ -41,9 +41,9 @@ class Movie {
     }
   }
 
-  static AgeRating _stringToAgeRating(String str) {
+  static AgeRating stringToAgeRating(String str) {
     return AgeRating.values.firstWhere(
-      (e) => _ageRatingToString(e) == str,
+      (e) => ageRatingToString(e) == str,
       orElse: () => AgeRating.livre,
     );
   }
@@ -55,7 +55,7 @@ class Movie {
       'imageUrl': imageUrl,
       'title': title,
       'genre': genre,
-      'ageRating': _ageRatingToString(ageRating),
+      'ageRating': ageRatingToString(ageRating),
       'duration': duration,
       'rating': rating,
       'description': description,
@@ -69,7 +69,7 @@ class Movie {
       imageUrl: map['imageUrl'],
       title: map['title'],
       genre: map['genre'],
-      ageRating: _stringToAgeRating(map['ageRating']),
+      ageRating: stringToAgeRating(map['ageRating']),
       duration: map['duration'],
       rating: map['rating'],
       description: map['description'],
