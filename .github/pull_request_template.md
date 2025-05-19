@@ -19,7 +19,7 @@ Select one or more options:
 
 # ✅ Checklist
 
-- [ ] The PR is up to date with `main` or `develop`
+- [ ] The PR is up to date with `main`
 - [ ] Tested locally and works as expected
 - [ ] Existing tests are not broken
 - [ ] Added/updated relevant tests
@@ -27,7 +27,7 @@ Select one or more options:
 - [ ] Followed code style guidelines (lint/prettier/etc)
 - [ ] Documented complex or critical parts of the code
 
-# 🧪 Tested scenarios
+# 📝 Tested scenarios
 
 <!--
 List scenarios tested manually or automatically.
@@ -45,8 +45,8 @@ Screenshots (if applicable):
 <!--
 List issue IDs that are closed or related to this PR
 -->
-Closes #[issue-number]  
-Relates to #[issue-number]
+<!-- Closes #[issue-number] -->
+<!-- Relates to #[issue-number] -->
 
 # 🔍 Additional notes
 
