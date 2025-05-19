@@ -1,55 +1,56 @@
-# 📌 Descrição
+# 📌 Description
 
 <!--
-Descreva resumidamente o propósito da PR.
-Exemplo: Esta PR implementa a funcionalidade de login com autenticação JWT, adicionando o endpoint `/auth/login`.
+Briefly describe the purpose of this Pull Request.
+Example: This PR implements the login feature using JWT authentication, adding the `/auth/login` endpoint.
 -->
 
-# 🛠 Tipo de mudança
+# 🛠 Type of change
 
-Selecione uma ou mais opções:
+Select one or more options:
 
-- [ ] 🚑 Correção de bug
-- [ ] ✨ Nova funcionalidade
-- [ ] 🔁 Refatoração
-- [ ] 📚 Atualização de documentação
-- [ ] 🔧 Ajuste de configuração/infraestrutura
-- [ ] 🧪 Testes automatizados
-- [ ] Outro: <!-- descreva -->
+- [ ] 🚑 Bug fix
+- [ ] ✨ New feature
+- [ ] 🔁 Refactor
+- [ ] 📚 Documentation update
+- [ ] 🔧 Config/Infrastructure adjustment
+- [ ] 🧪 Automated tests
+- [ ] Other: <!-- describe -->
 
 # ✅ Checklist
 
-- [ ] A PR está atualizada com a `main` ou `develop`
-- [ ] Foi testada localmente com sucesso
-- [ ] Não quebrou testes existentes
-- [ ] Adicionei/atualizei testes relevantes
-- [ ] Atualizei a documentação (se necessário)
-- [ ] Segui o padrão de codificação do projeto (lint/prettier/etc)
-- [ ] Adicionei comentários para trechos complexos ou críticos
+- [ ] The PR is up to date with `main` or `develop`
+- [ ] Tested locally and works as expected
+- [ ] Existing tests are not broken
+- [ ] Added/updated relevant tests
+- [ ] Updated documentation if needed
+- [ ] Followed code style guidelines (lint/prettier/etc)
+- [ ] Documented complex or critical parts of the code
 
-# 🧪 Cenários testados
+# 🧪 Tested scenarios
 
 <!--
-Liste os cenários que foram testados manual ou automaticamente.
-Exemplo:
-- [x] Realizei login com usuário válido
-- [x] Testei login com senha inválida e recebi erro 401
-- [x] Verifiquei que o botão de logout limpa os dados do usuário
-Imagens:
+List scenarios tested manually or automatically.
+Example:
+- [x] Successfully logged in with valid credentials
+- [x] Failed login returns 401 with invalid password
+- [x] Logout button clears user session
+
+Screenshots (if applicable):
 ...
 -->
-# 🧩 Issues relacionadas
+
+# 🧩 Related issues
 
 <!--
-Liste os IDs das issues resolvidas ou relacionadas
+List issue IDs that are closed or related to this PR
 -->
-Closes #[número-da-issue]  
-Relates to #[número-da-issue]
+Closes #[issue-number]  
+Relates to #[issue-number]
 
-# 🔍 Notas adicionais
+# 🔍 Additional notes
 
 <!--
-Inclua qualquer observação relevante para os revisores.
-Exemplo: "Este PR depende da PR #45 que altera a base de dados."
+Include any relevant notes for reviewers.
+Example: "This PR depends on #45 which changes the database schema."
 -->
-
