@@ -27,16 +27,17 @@ Selecione uma ou mais opções:
 - [ ] Segui o padrão de codificação do projeto (lint/prettier/etc)
 - [ ] Adicionei comentários para trechos complexos ou críticos
 
-# 🧪 Como testar
+# 🧪 Cenários testados
 
 <!--
-Liste os passos para reproduzir/testar essa alteração.
+Liste os cenários que foram testados manual ou automaticamente.
 Exemplo:
-1. Rodar `npm install`
-2. Subir a aplicação com `docker-compose up`
-3. Fazer uma requisição POST para `/auth/login` com o corpo X
+- [x] Realizei login com usuário válido
+- [x] Testei login com senha inválida e recebi erro 401
+- [x] Verifiquei que o botão de logout limpa os dados do usuário
+Imagens:
+...
 -->
-
 # 🧩 Issues relacionadas
 
 <!--
