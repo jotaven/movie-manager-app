@@ -1,11 +1,4 @@
-enum AgeRating {
-  livre,
-  age10,
-  age12,
-  age14,
-  age16,
-  age18,
-}
+import 'package:movie_manager/models/age_rating.dart';
 
 class Movie {
   final int? id;
