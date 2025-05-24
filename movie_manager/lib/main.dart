@@ -11,15 +11,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Filmes',
-      home: const FilmesPage(),
+      home: const MoviesPage(),
     );
   }
 }
 
-class FilmesPage extends StatelessWidget {
-  const FilmesPage({super.key});
+class MoviesPage extends StatelessWidget {
+  const MoviesPage({super.key});
 
-  void _showEquipeModal(BuildContext context) {
+  void _showTeamModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -69,7 +69,7 @@ class FilmesPage extends StatelessWidget {
               backgroundColor: Colors.white,
               child: Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
             ),
-            onPressed: () => _showEquipeModal(context),
+            onPressed: () => _showTeamModal(context),
             tooltip: 'Sobre a equipe',
           ),
         ],
