@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="689789c7-f8e2-407c-95c2-88f9322b1e54" name="Changes" comment="feat: Estrutura da tela inicial e modal com nome dos membros">
-      <change beforePath="$PROJECT_DIR$/.idea/movie-manager-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/movie-manager-app.iml" afterDir="false" />
+    <list default="true" id="689789c7-f8e2-407c-95c2-88f9322b1e54" name="Changes" comment="fix: Alterando variáveis para inglês">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_manager/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_manager/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_manager/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_manager/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,11 +75,20 @@
       <option name="project" value="LOCAL" />
       <updated>1748104947055</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix: Alterando variáveis para inglês">
+      <option name="closed" value="true" />
+      <created>1748114011719</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748114011719</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Estrutura da tela inicial e modal com nome dos membros" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Estrutura da tela inicial e modal com nome dos membros" />
+    <MESSAGE value="fix: Alterando variáveis para inglês" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Alterando variáveis para inglês" />
   </component>
 </project>
