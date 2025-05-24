@@ -22,7 +22,7 @@ enum AgeRating {
       }
     }
     debugPrint("Valor de AgeRating não reconhecido do DB: '$dbValue'. Usando LIVRE como padrão.");
-    return AgeRating.LIVRE;
+    return AgeRating.freeToAllPublic;
   }
 
   // get the value to be stored into db
