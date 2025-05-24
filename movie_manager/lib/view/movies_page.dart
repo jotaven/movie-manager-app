@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_manager/data/dao/movie_dao_impl.dart';
 import 'package:movie_manager/service/movie_service.dart';
-import 'package:movie_manager/ui/add_movie_page.dart';
 import 'package:movie_manager/controller/movie_controller.dart';
+
+import 'add_movie_page.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
