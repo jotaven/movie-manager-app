@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import 'models/age_rating.dart';
-import 'models/movie.dart';
-import 'controller/movie_controller.dart';
+import 'package:movie_manager/models/age_rating.dart';
+import 'package:movie_manager/models/movie.dart';
+import 'package:movie_manager/controller/movie_controller.dart';
 
 class AddMoviePage extends StatefulWidget {
   final MovieController movieController;
