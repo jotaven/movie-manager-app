@@ -1,7 +1,7 @@
 import '../../models/movie.dart';
 
 abstract class MovieDao {
-  Future<int> insertMovie(Movie movie);
+  Future<Movie?> insertMovie(Movie movie);
   Future<List<Movie>> getAllMovies();
   Future<Movie?> getMovieById(int id);
   Future<int> updateMovie(Movie movie);
