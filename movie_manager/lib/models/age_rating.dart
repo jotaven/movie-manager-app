@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 
 enum AgeRating {
-  LIVRE("Livre", 0),
-  DEZ("10+", 10),
-  DOZE("12+", 12),
-  CATORZE("14+", 14),
-  DEZESSEIS("16+", 16),
-  DEZOITO("18+", 18);
+  freeToAllPublic("Livre", 0),
+  ten("10+", 10),
+  twelve("12+", 12),
+  fourteen("14+", 14),
+  sixteen("16+", 16),
+  eighteen("18+", 18);
 
   final String displayValue; // how appears in UI
   final int minimumAge;     // minimum age that correspond
