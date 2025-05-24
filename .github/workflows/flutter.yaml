@@ -26,14 +26,14 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-        working-directory: movie-manager
+        working-directory: movie_manager
 
       - name: Analyze code with lint
         run: flutter analyze
-        working-directory: movie-manager
+        working-directory: movie_manager
 
       - name: Run unit tests
         run: flutter test
-        working-directory: movie-manager
+        working-directory: movie_manager
 
 
