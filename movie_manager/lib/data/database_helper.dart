@@ -10,7 +10,6 @@ class DatabaseHelper {
 
   static const tableMovies = 'movies';
 
-
   static const columnId = 'id';
   static const columnImageUrl = 'imageUrl';
   static const columnTitle = 'title';
@@ -20,7 +19,6 @@ class DatabaseHelper {
   static const columnRating = 'rating';
   static const columnDescription = 'description';
   static const columnYear = 'year';
-
 
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
