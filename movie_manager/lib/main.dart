@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_manager/data/dao/movie_dao_impl.dart';
+import 'package:movie_manager/service/movie_service.dart';
+
+import 'add_movie_page.dart';
+import 'controller/movie_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +21,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MoviesPage extends StatelessWidget {
+class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
+
+  @override
+  State<MoviesPage> createState() => _MoviesPageState();
+}
+
+class _MoviesPageState extends State<MoviesPage> {
+  late final MovieController _movieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _movieController = MovieController( movieService: MovieService(movieDao: MovieDaoImpl()));
+  }
 
   void _showTeamModal(BuildContext context) {
     showModalBottomSheet(
@@ -56,6 +74,21 @@ class MoviesPage extends StatelessWidget {
     );
   }
 
+  Future<void> _goToAddMovie() async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddMoviePage(movieController: _movieController),
+      ),
+    );
+
+    if (result == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Filme inserido com sucesso')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +109,13 @@ class MoviesPage extends StatelessWidget {
       ),
       body: const Center(
         child: Text('Cards...'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _goToAddMovie,
+        backgroundColor: Colors.blue,
+        shape: const CircleBorder(),
+        tooltip: 'Adicionar Filme',
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
