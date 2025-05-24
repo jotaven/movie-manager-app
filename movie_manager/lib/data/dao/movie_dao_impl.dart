@@ -20,8 +20,6 @@ class MovieDaoImpl implements MovieDao {
     } catch (e) {
       debugPrint('Erro ao inserir filme: $e');
       return null;
-    } finally {
-      db.close();
     }
   }
 
