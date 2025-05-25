@@ -193,6 +193,9 @@ class _MoviesPageState extends State<MoviesPage> {
             ),
             onDismissed: (_) async {
               await _movieController.deleteMovie(movie.id!);
+
+              if (!mounted) return;
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Filme "${movie.title}" deletado')),
               );
