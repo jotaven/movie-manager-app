@@ -73,7 +73,6 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Future<void> _goToAddMovie() async {
-    // ignore: use_build_context_synchronously
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -84,6 +83,7 @@ class _MoviesPageState extends State<MoviesPage> {
     if (!mounted) return;
 
     if (result == true) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Filme inserido com sucesso')),
       );
