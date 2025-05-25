@@ -6,6 +6,7 @@ import 'package:movie_manager/controller/movie_controller.dart';
 import 'package:movie_manager/models/movie.dart';
 
 import 'add_movie_page.dart';
+import 'movie_details_page.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
@@ -90,67 +91,77 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _buildMovieCard(Movie movie) {
-    return SizedBox(
-      width: 400,
-      height: 200,
-      child: Card(
-        elevation: 2,
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(0),
-                child: Image.network(
-                  movie.imageUrl,
-                  width: 120,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) =>
-                  const Icon(Icons.broken_image, size: 80),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailsPage(movie: movie),
+          ),
+        );
+      },
+      child: SizedBox(
+        width: 400,
+        height: 200,
+        child: Card(
+          elevation: 2,
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(0),
+                  child: Image.network(
+                    movie.imageUrl,
+                    width: 120,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) =>
+                    const Icon(Icons.broken_image, size: 80),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        movie.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      movie.genre,
-                      style:
-                      const TextStyle(color: Colors.grey, fontSize: 16),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${movie.durationInMinutes} min',
-                      style:
-                      const TextStyle(color: Colors.grey, fontSize: 16),
-                    ),
-                    const SizedBox(height: 8),
-                    const Spacer(),
-                    RatingBarIndicator(
-                      rating: movie.rating,
-                      itemBuilder: (context, index) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                      const SizedBox(height: 4),
+                      Text(
+                        movie.genre,
+                        style:
+                        const TextStyle(color: Colors.grey, fontSize: 16),
                       ),
-                      itemCount: 5,
-                      itemSize: 28.0,
-                      direction: Axis.horizontal,
-                    ),
-                  ],
+                      const SizedBox(height: 4),
+                      Text(
+                        '${movie.durationInMinutes} min',
+                        style:
+                        const TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                      const SizedBox(height: 8),
+                      const Spacer(),
+                      RatingBarIndicator(
+                        rating: movie.rating,
+                        itemBuilder: (context, index) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        itemSize: 28.0,
+                        direction: Axis.horizontal,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -168,8 +179,7 @@ class _MoviesPageState extends State<MoviesPage> {
             icon: const CircleAvatar(
               radius: 14,
               backgroundColor: Colors.white,
-              child:
-              Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
+              child: Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
             ),
             onPressed: () => _showTeamModal(context),
             tooltip: 'Sobre a equipe',
