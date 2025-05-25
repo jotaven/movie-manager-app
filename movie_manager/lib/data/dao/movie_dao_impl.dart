@@ -33,6 +33,8 @@ class MovieDaoImpl implements MovieDao {
     });
   }
 
+
+
   @override
   Future<Movie?> getMovieById(int id) async {
     throw UnimplementedError("getMovieById() is not implemented");
@@ -45,9 +47,20 @@ class MovieDaoImpl implements MovieDao {
 
   @override
   Future<int> deleteMovie(int id) async {
-    throw UnimplementedError("deleteMovie() is not implemented");
+    final db = await dbHelper.database;
 
+    try {
+      return await db.delete(
+        DatabaseHelper.tableMovies,
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      debugPrint('Erro ao deletar filme: $e');
+      return 0;
+    }
   }
+
 
   @override
   Future<List<Movie>> searchMovies(String query) async {

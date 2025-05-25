@@ -14,4 +14,10 @@ class MovieController {
     return await movieService.listMovies();
   }
 
+  Future<void> deleteMovie(int id) async {
+    await movieService.deleteMovie(id);
+  }
+
 }
+
+

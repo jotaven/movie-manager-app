@@ -21,4 +21,8 @@ class MovieService {
   Future<List<Movie>> listMovies() async {
     return await movieDao.getAllMovies();
   }
+
+  Future<void> deleteMovie(int id) async {
+    await movieDao.deleteMovie(id);
+  }
 }
