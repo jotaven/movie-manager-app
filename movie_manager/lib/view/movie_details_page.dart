@@ -39,7 +39,8 @@ class MovieDetailsPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text(movie.genre, style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 8),
-            Text('${movie.durationInMinutes} min', style: const TextStyle(fontSize: 16)),
+            Text('${movie.durationInMinutes} min',
+                style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 8),
             Text(
               'Ano: ${movie.year}',
@@ -53,18 +54,17 @@ class MovieDetailsPage extends StatelessWidget {
             const SizedBox(height: 16),
             RatingBarIndicator(
               rating: movie.rating,
-              itemBuilder: (context, index) => const Icon(Icons.star, color: Colors.amber),
+              itemBuilder: (context, index) =>
+              const Icon(Icons.star, color: Colors.amber),
               itemCount: 5,
               itemSize: 30.0,
               direction: Axis.horizontal,
             ),
             const SizedBox(height: 16),
             Text(
-              movie.description.isNotEmpty ? movie.description : 'Sem descrição disponível.',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              movie.description ?? 'Sem descrição disponível.',
+              movie.description.isNotEmpty
+                  ? movie.description
+                  : 'Sem descrição disponível.',
               style: const TextStyle(fontSize: 16),
             ),
           ],
