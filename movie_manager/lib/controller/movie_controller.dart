@@ -10,4 +10,8 @@ class MovieController {
     return await movieService.addMovie(movie);
   }
 
+  Future<List<Movie>> getAllMovies() async {
+    return await movieService.listMovies();
+  }
+
 }
