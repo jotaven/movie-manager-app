@@ -66,6 +66,8 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
 
+    if (!mounted) return;
+
     if (result == true) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Filme inserido com sucesso')),
