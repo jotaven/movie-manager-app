@@ -45,7 +45,7 @@ class DatabaseHelper {
             $columnTitle TEXT NOT NULL,
             $columnGenre TEXT NOT NULL,
             $columnAgeRating TEXT NOT NULL,
-            $columnDuration TEXT NOT NULL,
+            $columnDuration INTEGER NOT NULL,
             $columnRating REAL NOT NULL,
             $columnDescription TEXT NOT NULL,
             $columnYear INTEGER NOT NULL
