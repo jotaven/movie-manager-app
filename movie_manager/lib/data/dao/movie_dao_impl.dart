@@ -25,7 +25,12 @@ class MovieDaoImpl implements MovieDao {
 
   @override
   Future<List<Movie>> getAllMovies() async {
-    throw UnimplementedError("getAllMovies() is not implemented");
+    final db = await dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query(DatabaseHelper.tableMovies);
+
+    return List.generate(maps.length, (i) {
+      return Movie.fromMap(maps[i]);
+    });
   }
 
   @override
