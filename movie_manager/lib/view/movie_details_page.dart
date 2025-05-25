@@ -59,8 +59,10 @@ class MovieDetailsPage extends StatelessWidget {
               direction: Axis.horizontal,
             ),
             const SizedBox(height: 16),
-            const Text('Descrição:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
+            Text(
+              movie.description.isNotEmpty ? movie.description : 'Sem descrição disponível.',
+              style: const TextStyle(fontSize: 16),
+            ),
             Text(
               movie.description ?? 'Sem descrição disponível.',
               style: const TextStyle(fontSize: 16),
