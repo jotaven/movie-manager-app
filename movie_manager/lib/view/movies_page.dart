@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_manager/data/dao/movie_dao_impl.dart';
 import 'package:movie_manager/service/movie_service.dart';
 import 'package:movie_manager/controller/movie_controller.dart';
+import 'package:movie_manager/models/movie.dart';
 
 import 'add_movie_page.dart';
 
@@ -14,11 +16,22 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage> {
   late final MovieController _movieController;
+  List<Movie> _movies = [];
 
   @override
   void initState() {
     super.initState();
-    _movieController = MovieController( movieService: MovieService(movieDao: MovieDaoImpl()));
+    _movieController = MovieController(
+      movieService: MovieService(movieDao: MovieDaoImpl()),
+    );
+    _loadMovies();
+  }
+
+  Future<void> _loadMovies() async {
+    final movies = await _movieController.getAllMovies();
+    setState(() {
+      _movies = movies;
+    });
   }
 
   void _showTeamModal(BuildContext context) {
@@ -72,7 +85,74 @@ class _MoviesPageState extends State<MoviesPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Filme inserido com sucesso')),
       );
+      _loadMovies();
     }
+  }
+
+  Widget _buildMovieCard(Movie movie) {
+    return SizedBox(
+      width: 350,
+      height: 200,
+      child: Card(
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(0),
+                child: Image.network(
+                  movie.imageUrl,
+                  width: 120,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) =>
+                  const Icon(Icons.broken_image, size: 80),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      movie.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      movie.genre,
+                      style: const TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${movie.durationInMinutes} min',
+                      style: const TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                    const SizedBox(height: 8),
+                    const Spacer(),
+                    RatingBarIndicator(
+                      rating: movie.rating,
+                      itemBuilder: (context, index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 28.0,
+                      direction: Axis.horizontal,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -93,8 +173,11 @@ class _MoviesPageState extends State<MoviesPage> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Cards...'),
+      body: _movies.isEmpty
+          ? const Center(child: Text('Nenhum filme cadastrado'))
+          : ListView.builder(
+        itemCount: _movies.length,
+        itemBuilder: (context, index) => _buildMovieCard(_movies[index]),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _goToAddMovie,
