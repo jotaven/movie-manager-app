@@ -33,8 +33,6 @@ class MovieDaoImpl implements MovieDao {
     });
   }
 
-
-
   @override
   Future<Movie?> getMovieById(int id) async {
     throw UnimplementedError("getMovieById() is not implemented");
@@ -60,7 +58,6 @@ class MovieDaoImpl implements MovieDao {
       return 0;
     }
   }
-
 
   @override
   Future<List<Movie>> searchMovies(String query) async {

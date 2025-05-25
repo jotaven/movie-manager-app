@@ -71,4 +71,3 @@ class MovieDetailsPage extends StatelessWidget {
     );
   }
 }
-

@@ -17,7 +17,6 @@ class MovieController {
   Future<void> deleteMovie(int id) async {
     await movieService.deleteMovie(id);
   }
-
 }
 
 
