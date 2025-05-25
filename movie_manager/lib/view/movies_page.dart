@@ -72,6 +72,8 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Future<void> _goToAddMovie() async {
+    if (!context.mounted) return; // Check if the context is mounted first
+
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -79,12 +81,10 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
 
-    if (result == true) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Filme inserido com sucesso')),
-        );
-      }
+    if (result == true && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Filme inserido com sucesso')),
+      );
       _loadMovies();
     }
   }
