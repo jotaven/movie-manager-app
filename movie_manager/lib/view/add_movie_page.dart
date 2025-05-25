@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:movie_manager/models/age_rating.dart';
@@ -34,7 +35,6 @@ class _AddMoviePageState extends State<AddMoviePage> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     _titleController.dispose();
     _genreController.dispose();
     _imageUrlController.dispose();
@@ -42,6 +42,35 @@ class _AddMoviePageState extends State<AddMoviePage> {
     _descriptionController.dispose();
     _yearController.dispose();
     super.dispose();
+  }
+
+  Future<void> _selectYear() async {
+    final currentYear = DateTime.now().year;
+    final years = List.generate(150, (index) => currentYear + 5 - index); // 1900 até ano atual + 5
+
+    final selectedYear = await showModalBottomSheet<int>(
+      context: context,
+      builder: (BuildContext context) {
+        return ListView.builder(
+          itemCount: years.length,
+          itemBuilder: (context, index) {
+            final year = years[index];
+            return ListTile(
+              title: Text(year.toString()),
+              onTap: () {
+                Navigator.pop(context, year);
+              },
+            );
+          },
+        );
+      },
+    );
+
+    if (selectedYear != null) {
+      setState(() {
+        _yearController.text = selectedYear.toString();
+      });
+    }
   }
 
   Future<void> _saveMovie() async {
@@ -76,7 +105,9 @@ class _AddMoviePageState extends State<AddMoviePage> {
           );
         }
       }
-    } else if (_selectedAgeRating == null && mounted && _formKey.currentState?.validate() == true) {
+    } else if (_selectedAgeRating == null &&
+        mounted &&
+        _formKey.currentState?.validate() == true) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, selecione a classificação indicativa.')),
       );
@@ -117,15 +148,22 @@ class _AddMoviePageState extends State<AddMoviePage> {
                   controller: _durationController,
                   decoration: const InputDecoration(labelText: 'Duração (min)'),
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   validator: (value) =>
                   value == null || value.isEmpty || int.tryParse(value) == null ? 'Informe uma duração válida' : null,
                 ),
-                TextFormField(
-                  controller: _yearController,
-                  decoration: const InputDecoration(labelText: 'Ano de Lançamento'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) =>
-                  value == null || value.isEmpty || int.tryParse(value) == null ? 'Informe um ano válido' : null,
+                GestureDetector(
+                  onTap: _selectYear,
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      controller: _yearController,
+                      decoration: const InputDecoration(labelText: 'Ano de Lançamento'),
+                      validator: (value) =>
+                      value == null || value.isEmpty || int.tryParse(value) == null
+                          ? 'Informe um ano válido'
+                          : null,
+                    ),
+                  ),
                 ),
                 DropdownButtonFormField<AgeRating>(
                   decoration: const InputDecoration(labelText: 'Classificação Indicativa'),
