@@ -79,12 +79,12 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
 
-    if (!mounted) return;
-
     if (result == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Filme inserido com sucesso')),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Filme inserido com sucesso')),
+        );
+      }
       _loadMovies();
     }
   }
@@ -192,13 +192,14 @@ class _MoviesPageState extends State<MoviesPage> {
               child: const Icon(Icons.delete, color: Colors.white),
             ),
             onDismissed: (_) async {
+              final scaffoldContext = context;
               await _movieController.deleteMovie(movie.id!);
 
-              if (!mounted) return;
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Filme "${movie.title}" deletado')),
-              );
+              if (scaffoldContext.mounted) {
+                ScaffoldMessenger.of(scaffoldContext).showSnackBar(
+                  SnackBar(content: Text('Filme "${movie.title}" deletado')),
+                );
+              }
               _loadMovies();
             },
             child: _buildMovieCard(movie),
