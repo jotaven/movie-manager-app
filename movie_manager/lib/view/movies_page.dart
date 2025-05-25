@@ -80,7 +80,7 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
 
-    if (!mounted) return;
+    if (!mounted) return; // Agora verificando logo após await
 
     if (result == true) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -89,6 +89,7 @@ class _MoviesPageState extends State<MoviesPage> {
       _loadMovies();
     }
   }
+
 
   Widget _buildMovieCard(Movie movie) {
     return InkWell(
