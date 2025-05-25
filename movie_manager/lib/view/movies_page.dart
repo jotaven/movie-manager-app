@@ -205,8 +205,10 @@ class _MoviesPageState extends State<MoviesPage> {
               child: const Icon(Icons.delete, color: Colors.white),
             ),
             onDismissed: (_) async {
+              final messenger = ScaffoldMessenger.of(context);
               await _movieController.deleteMovie(movie.id!);
-              ScaffoldMessenger.of(context).showSnackBar(
+              if (!mounted) return;
+              messenger.showSnackBar(
                 SnackBar(content: Text('Filme "${movie.title}" deletado')),
               );
               _loadMovies();
