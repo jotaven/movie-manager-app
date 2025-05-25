@@ -73,6 +73,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Future<void> _goToAddMovie() async {
+    // ignore: use_build_context_synchronously
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -80,7 +81,7 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
 
-    if (!mounted) return; // Agora verificando logo após await
+    if (!mounted) return;
 
     if (result == true) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -89,6 +90,7 @@ class _MoviesPageState extends State<MoviesPage> {
       _loadMovies();
     }
   }
+
 
 
   Widget _buildMovieCard(Movie movie) {
