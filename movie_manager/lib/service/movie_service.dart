@@ -18,4 +18,7 @@ class MovieService {
     return await movieDao.insertMovie(movie);
   }
 
+  Future<List<Movie>> listMovies() async {
+    return await movieDao.getAllMovies();
+  }
 }
