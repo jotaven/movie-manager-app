@@ -23,8 +23,8 @@ class Movie {
     required this.rating,
     required this.description,
     required this.year,
-  }) : assert(durationInMinutes >= 0, 'Duração não pode ser negativa'),
-        assert(rating >= 0 && rating <= 5, 'Score deve estar entre 0 e 10');
+  })  : assert(durationInMinutes >= 0, 'Duração não pode ser negativa'),
+        assert(rating >= 0 && rating <= 5, 'Score deve estar entre 0 e 5'); // Corrigido para refletir a condição
 
   String get displayDuration {
     final int hours = durationInMinutes ~/ 60;
@@ -53,16 +53,53 @@ class Movie {
   }
 
   factory Movie.fromMap(Map<String, dynamic> map) {
+    int parseToInt(dynamic value, String fieldNameForError) {
+      if (value is int) return value;
+      if (value is String) {
+        final asDouble = double.tryParse(value);
+        if (asDouble != null) return asDouble.toInt();
+        final asInt = int.tryParse(value);
+        if (asInt != null) return asInt;
+      }
+      if (value is double) return value.toInt();
+      throw FormatException(
+          "Não foi possível converter o valor '$value' do campo '$fieldNameForError' para int.");
+    }
+
+    int? parseToNullableInt(dynamic value, String fieldNameForError) {
+      if (value == null) return null;
+      if (value is int) return value;
+      if (value is String) {
+        final asDouble = double.tryParse(value);
+        if (asDouble != null) return asDouble.toInt();
+        final asInt = int.tryParse(value);
+        return asInt;
+      }
+      if (value is double) return value.toInt();
+      return null;
+    }
+
+    double parseToDouble(dynamic value, String fieldNameForError) {
+      if (value is double) return value;
+      if (value is int) return value.toDouble();
+      if (value is String) {
+        final parsed = double.tryParse(value);
+        if (parsed != null) return parsed;
+      }
+      throw FormatException(
+          "Não foi possível converter o valor '$value' do campo '$fieldNameForError' para double.");
+    }
+
     return Movie(
-      id: map['id'] as int?,
+      id: parseToNullableInt(map['id'], 'id'),
       imageUrl: map['imageUrl'] as String,
       title: map['title'] as String,
       genre: map['genre'] as String,
       ageRating: AgeRating.fromDbValue(map['ageRating'] as String),
-      durationInMinutes: map['duration'] as int,
-      rating: map['rating'] as double,
+      durationInMinutes: parseToInt(map['duration'], 'duration'),
+      rating: parseToDouble(map['rating'], 'rating'),
       description: map['description'] as String,
-      year: map['year'] as int,
+      year: parseToInt(map['year'], 'year'),
     );
   }
 
@@ -96,7 +133,7 @@ class Movie {
           other is Movie &&
               runtimeType == other.runtimeType &&
               id == other.id &&
-              title == other.title && 
+              title == other.title &&
               imageUrl == other.imageUrl &&
               genre == other.genre &&
               ageRating == other.ageRating &&
