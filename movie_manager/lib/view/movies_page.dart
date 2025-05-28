@@ -78,7 +78,6 @@ class _MoviesPageState extends State<MoviesPage> {
         builder: (context) => AddMoviePage(movieController: _movieController),
       ),
     );
-
     if (!mounted) return;
 
     if (result == true) {
@@ -89,9 +88,10 @@ class _MoviesPageState extends State<MoviesPage> {
     }
   }
 
+
   Widget _buildMovieCard(Movie movie) {
     return SizedBox(
-      width: 350,
+      width: 400,
       height: 200,
       child: Card(
         elevation: 2,
@@ -126,12 +126,14 @@ class _MoviesPageState extends State<MoviesPage> {
                     const SizedBox(height: 4),
                     Text(
                       movie.genre,
-                      style: const TextStyle(color: Colors.grey, fontSize: 16),
+                      style:
+                      const TextStyle(color: Colors.grey, fontSize: 16),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '${movie.durationInMinutes} min',
-                      style: const TextStyle(color: Colors.grey, fontSize: 16),
+                      style:
+                      const TextStyle(color: Colors.grey, fontSize: 16),
                     ),
                     const SizedBox(height: 8),
                     const Spacer(),
@@ -166,7 +168,8 @@ class _MoviesPageState extends State<MoviesPage> {
             icon: const CircleAvatar(
               radius: 14,
               backgroundColor: Colors.white,
-              child: Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
+              child:
+              Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
             ),
             onPressed: () => _showTeamModal(context),
             tooltip: 'Sobre a equipe',
@@ -177,7 +180,31 @@ class _MoviesPageState extends State<MoviesPage> {
           ? const Center(child: Text('Nenhum filme cadastrado'))
           : ListView.builder(
         itemCount: _movies.length,
-        itemBuilder: (context, index) => _buildMovieCard(_movies[index]),
+        itemBuilder: (context, index) {
+          final movie = _movies[index];
+          return Dismissible(
+            key: Key(movie.id.toString()),
+            direction: DismissDirection.endToStart,
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Icon(Icons.delete, color: Colors.white),
+            ),
+            onDismissed: (_) async {
+              final scaffoldContext = context;
+              await _movieController.deleteMovie(movie.id!);
+
+              if (scaffoldContext.mounted) {
+                ScaffoldMessenger.of(scaffoldContext).showSnackBar(
+                  SnackBar(content: Text('Filme "${movie.title}" deletado')),
+                );
+              }
+              _loadMovies();
+            },
+            child: _buildMovieCard(movie),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _goToAddMovie,
