@@ -79,7 +79,6 @@ class _MoviesPageState extends State<MoviesPage> {
         builder: (context) => AddMoviePage(movieController: _movieController),
       ),
     );
-
     if (!mounted) return;
 
     if (result == true) {
@@ -90,8 +89,6 @@ class _MoviesPageState extends State<MoviesPage> {
       _loadMovies();
     }
   }
-
-
 
   Widget _buildMovieCard(Movie movie) {
     return InkWell(

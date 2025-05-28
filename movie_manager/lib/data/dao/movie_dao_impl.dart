@@ -62,6 +62,5 @@ class MovieDaoImpl implements MovieDao {
   @override
   Future<List<Movie>> searchMovies(String query) async {
     throw UnimplementedError("searchMovies() is not implemented");
-
   }
 }
