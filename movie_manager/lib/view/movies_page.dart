@@ -82,7 +82,6 @@ class _MoviesPageState extends State<MoviesPage> {
     if (!mounted) return;
 
     if (result == true) {
-      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Filme inserido com sucesso')),
       );
@@ -90,22 +89,69 @@ class _MoviesPageState extends State<MoviesPage> {
     }
   }
 
-  Widget _buildMovieCard(Movie movie) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MovieDetailsPage(movie: movie),
-          ),
+  /// MOSTRA O MENU DE AÇÕES PARA CADA FILME
+  void _showMovieOptions(Movie movie) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Exibir Dados'),
+              onTap: () {
+                Navigator.pop(ctx);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MovieDetailsPage(movie: movie),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Alterar'),
+              // onTap: () async {
+              //   Navigator.pop(ctx);
+              //   final result = await Navigator.push<bool>(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (_) => EditMoviePage(
+              //         movieController: _movieController,
+              //         movie: movie,
+              //       ),
+              //     ),
+              //   );
+              //   if (!mounted) return;
+              //   if (result == true) {
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       const SnackBar(content: Text('Filme alterado com sucesso')),
+              //     );
+              //     _loadMovies();
+              //   }
+              // },
+            ),
+            const SizedBox(height: 12),
+          ],
         );
       },
-      child: SizedBox(
-        width: 400,
-        height: 200,
-        child: Card(
-          elevation: 2,
-          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    );
+  }
+
+  Widget _buildMovieCard(Movie movie) {
+    return SizedBox(
+      width: 400,
+      height: 200,
+      child: Card(
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        child: InkWell(
+          onTap: () => _showMovieOptions(movie),
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
@@ -179,7 +225,8 @@ class _MoviesPageState extends State<MoviesPage> {
             icon: const CircleAvatar(
               radius: 14,
               backgroundColor: Colors.white,
-              child: Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
+              child:
+              Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
             ),
             onPressed: () => _showTeamModal(context),
             tooltip: 'Sobre a equipe',
@@ -202,12 +249,12 @@ class _MoviesPageState extends State<MoviesPage> {
               child: const Icon(Icons.delete, color: Colors.white),
             ),
             onDismissed: (_) async {
-              final messenger = ScaffoldMessenger.of(context);
               await _movieController.deleteMovie(movie.id!);
-              if (!mounted) return;
-              messenger.showSnackBar(
-                SnackBar(content: Text('Filme "${movie.title}" deletado')),
-              );
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Filme "${movie.title}" deletado')),
+                );
+              }
               _loadMovies();
             },
             child: _buildMovieCard(movie),

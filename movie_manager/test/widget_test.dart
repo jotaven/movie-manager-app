@@ -30,4 +30,6 @@ void main() {
     // Verifica se o modal foi fechado (textos somem)
         expect(find.text('Equipe:'), findsNothing);
   });
+
+
 }
