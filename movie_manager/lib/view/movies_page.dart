@@ -225,8 +225,7 @@ class _MoviesPageState extends State<MoviesPage> {
             icon: const CircleAvatar(
               radius: 14,
               backgroundColor: Colors.white,
-              child:
-              Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
+              child: Icon(Icons.info_outline, size: 18, color: Colors.deepPurple),
             ),
             onPressed: () => _showTeamModal(context),
             tooltip: 'Sobre a equipe',
