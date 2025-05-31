@@ -18,6 +18,18 @@ class MovieService {
     return await movieDao.insertMovie(movie);
   }
 
+  Future<Movie?> updateMovie(Movie movie) async {
+    if (movie.title.isEmpty) {
+      throw Exception('Título não pode ser vazio');
+    }
+
+    if (movie.durationInMinutes <= 0) {
+      throw Exception('Duração deve ser maior que zero');
+    }
+
+    return await movieDao.updateMovie(movie);
+  }
+
   Future<List<Movie>> listMovies() async {
     return await movieDao.getAllMovies();
   }
