@@ -5,7 +5,7 @@ import 'package:movie_manager/service/movie_service.dart';
 import 'package:movie_manager/controller/movie_controller.dart';
 import 'package:movie_manager/models/movie.dart';
 
-import 'add_movie_page.dart';
+import 'movie_form.dart';
 import 'movie_details_page.dart';
 
 class MoviesPage extends StatefulWidget {
@@ -76,7 +76,7 @@ class _MoviesPageState extends State<MoviesPage> {
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (context) => AddMoviePage(movieController: _movieController),
+        builder: (context) => MovieForm(movieController: _movieController),
       ),
     );
     if (!mounted) return;
@@ -116,25 +116,26 @@ class _MoviesPageState extends State<MoviesPage> {
             ListTile(
               leading: const Icon(Icons.edit),
               title: const Text('Alterar'),
-              // onTap: () async {
-              //   Navigator.pop(ctx);
-              //   final result = await Navigator.push<bool>(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (_) => EditMoviePage(
-              //         movieController: _movieController,
-              //         movie: movie,
-              //       ),
-              //     ),
-              //   );
-              //   if (!mounted) return;
-              //   if (result == true) {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       const SnackBar(content: Text('Filme alterado com sucesso')),
-              //     );
-              //     _loadMovies();
-              //   }
-              // },
+              onTap: () async {
+                Navigator.pop(ctx);
+                final result = await Navigator.push<bool>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MovieForm(
+                      movieController: _movieController,
+                      movie: movie,
+                    ),
+                  ),
+                );
+                if (!mounted) return;
+                if (result == true) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Filme alterado com sucesso')),
+                  );
+                  _loadMovies();
+                }
+              },
+
             ),
             const SizedBox(height: 12),
           ],
