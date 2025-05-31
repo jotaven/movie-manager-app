@@ -39,8 +39,26 @@ class MovieDaoImpl implements MovieDao {
   }
 
   @override
-  Future<int> updateMovie(Movie movie) async {
-    throw UnimplementedError("updateMovie() is not implemented");
+  Future<Movie?> updateMovie(Movie movie) async {
+    final db = await dbHelper.database;
+
+    try {
+      final rowsAffected = await db.update(
+        DatabaseHelper.tableMovies,
+        movie.toMap(),
+        where: 'id = ?',
+        whereArgs: [movie.id],
+      );
+
+      if (rowsAffected > 0) {
+        return movie;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      debugPrint('Erro ao atualizar filme: $e');
+      return null;
+    }
   }
 
   @override

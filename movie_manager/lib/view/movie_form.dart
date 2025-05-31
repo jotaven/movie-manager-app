@@ -6,16 +6,21 @@ import 'package:movie_manager/models/age_rating.dart';
 import 'package:movie_manager/models/movie.dart';
 import 'package:movie_manager/controller/movie_controller.dart';
 
-class AddMoviePage extends StatefulWidget {
+class MovieForm extends StatefulWidget {
   final MovieController movieController;
+  final Movie? movie;
 
-  const AddMoviePage({super.key, required this.movieController});
+  const MovieForm({
+    super.key,
+    required this.movieController,
+    this.movie,
+  });
 
   @override
-  State<AddMoviePage> createState() => _AddMoviePageState();
+  State<MovieForm> createState() => _MovieFormState();
 }
 
-class _AddMoviePageState extends State<AddMoviePage> {
+class _MovieFormState extends State<MovieForm> {
   final _formKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();
@@ -31,6 +36,23 @@ class _AddMoviePageState extends State<AddMoviePage> {
   bool _isSaving = false;
 
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    final movie = widget.movie;
+
+    if (movie != null) {
+      _titleController.text = movie.title;
+      _genreController.text = movie.genre;
+      _imageUrlController.text = movie.imageUrl;
+      _durationController.text = movie.durationInMinutes.toString();
+      _descriptionController.text = movie.description;
+      _yearController.text = movie.year.toString();
+      _selectedAgeRating = movie.ageRating;
+      _rating = movie.rating;
+    }
+  }
 
   @override
   void dispose() {
@@ -75,7 +97,8 @@ class _AddMoviePageState extends State<AddMoviePage> {
 
   Future<void> _saveMovie() async {
     if (_formKey.currentState!.validate() && _selectedAgeRating != null) {
-      final movie = Movie(
+      final editedMovie = Movie(
+        id: widget.movie?.id,
         title: _titleController.text,
         genre: _genreController.text,
         imageUrl: _imageUrlController.text,
@@ -91,7 +114,12 @@ class _AddMoviePageState extends State<AddMoviePage> {
       });
 
       try {
-        await widget.movieController.addMovie(movie);
+        if (widget.movie != null) {
+          await widget.movieController.updateMovie(editedMovie);
+        } else {
+          await widget.movieController.addMovie(editedMovie);
+        }
+
         if (mounted) {
           Navigator.pop(context, true);
         }
@@ -117,7 +145,9 @@ class _AddMoviePageState extends State<AddMoviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cadastrar Filme')),
+      appBar: AppBar(
+        title: Text(widget.movie != null ? 'Editar Filme' : 'Cadastrar Filme'),
+      ),
       body: Scrollbar(
         controller: _scrollController,
         thumbVisibility: true,
