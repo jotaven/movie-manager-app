@@ -19,6 +19,10 @@ class MovieService {
   }
 
   Future<Movie?> updateMovie(Movie movie) async {
+    if (movie.id == null) {
+      throw Exception('ID do filme não pode ser nulo');
+    }
+
     if (movie.title.isEmpty) {
       throw Exception('Título não pode ser vazio');
     }
