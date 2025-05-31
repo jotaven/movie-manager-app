@@ -144,69 +144,73 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _buildMovieCard(Movie movie) {
-    return SizedBox(
-      width: 400,
-      height: 200,
-      child: Card(
-        elevation: 2,
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: InkWell(
-          onTap: () => _showMovieOptions(movie),
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(0),
-                  child: Image.network(
-                    movie.imageUrl,
-                    width: 120,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) =>
-                    const Icon(Icons.broken_image, size: 80),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      child: SizedBox(
+        height: 200,
+        child: Card(
+          elevation: 2,
+          child: InkWell(
+            onTap: () => _showMovieOptions(movie),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(0),
+                    child: Image.network(
+                      movie.imageUrl,
+                      width: 120,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                      const Icon(Icons.broken_image, size: 80),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        movie.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          movie.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        movie.genre,
-                        style:
-                        const TextStyle(color: Colors.grey, fontSize: 16),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${movie.durationInMinutes} min',
-                        style:
-                        const TextStyle(color: Colors.grey, fontSize: 16),
-                      ),
-                      const SizedBox(height: 8),
-                      const Spacer(),
-                      RatingBarIndicator(
-                        rating: movie.rating,
-                        itemBuilder: (context, index) => const Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                        const SizedBox(height: 4),
+                        Text(
+                          movie.genre,
+                          style: const TextStyle(color: Colors.grey, fontSize: 16),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        itemCount: 5,
-                        itemSize: 28.0,
-                        direction: Axis.horizontal,
-                      ),
-                    ],
+                        const SizedBox(height: 4),
+                        Text(
+                          '${movie.durationInMinutes} min',
+                          style:
+                          const TextStyle(color: Colors.grey, fontSize: 16),
+                        ),
+                        const SizedBox(height: 8),
+                        const Spacer(),
+                        RatingBarIndicator(
+                          rating: movie.rating,
+                          itemBuilder: (context, index) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 28.0,
+                          direction: Axis.horizontal,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
