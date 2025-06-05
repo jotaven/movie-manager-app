@@ -35,6 +35,17 @@ class _MoviesPageState extends State<MoviesPage> {
     });
   }
 
+  Future<void> _handleMovieUpdate(Future<bool?> navigation, {String? successMessage}) async {
+    final result = await navigation;
+    if (!mounted) return;
+    if (result == true) {
+      if (successMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(successMessage)));
+      }
+      _loadMovies();
+    }
+  }
+
   void _showTeamModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -48,10 +59,7 @@ class _MoviesPageState extends State<MoviesPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Equipe:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              const Text('Equipe:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
               const Text('Gustavo Targino'),
               const Text('João Pedro Soares'),
@@ -72,24 +80,18 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
-  Future<void> _goToAddMovie() async {
-    final result = await Navigator.push<bool>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MovieForm(movieController: _movieController),
+  void _goToAddMovie() {
+    _handleMovieUpdate(
+      Navigator.push<bool>(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MovieForm(movieController: _movieController),
+        ),
       ),
+      successMessage: 'Filme inserido com sucesso',
     );
-    if (!mounted) return;
-
-    if (result == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Filme inserido com sucesso')),
-      );
-      _loadMovies();
-    }
   }
 
-  /// MOSTRA O MENU DE AÇÕES PARA CADA FILME
   void _showMovieOptions(Movie movie) {
     showModalBottomSheet(
       context: context,
@@ -105,37 +107,35 @@ class _MoviesPageState extends State<MoviesPage> {
               title: const Text('Exibir Dados'),
               onTap: () {
                 Navigator.pop(ctx);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => MovieDetailsPage(movie: movie),
+                _handleMovieUpdate(
+                  Navigator.push<bool>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => MovieDetailsPage(movie: movie),
+                    ),
                   ),
+                  successMessage: 'Filme alterado com sucesso',
                 );
               },
             ),
             ListTile(
               leading: const Icon(Icons.edit),
               title: const Text('Alterar'),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(ctx);
-                final result = await Navigator.push<bool>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => MovieForm(
-                      movieController: _movieController,
-                      movie: movie,
+                _handleMovieUpdate(
+                  Navigator.push<bool>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => MovieForm(
+                        movieController: _movieController,
+                        movie: movie,
+                      ),
                     ),
                   ),
+                  successMessage: 'Filme alterado com sucesso',
                 );
-                if (!mounted) return;
-                if (result == true) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Filme alterado com sucesso')),
-                  );
-                  _loadMovies();
-                }
               },
-
             ),
             const SizedBox(height: 12),
           ],

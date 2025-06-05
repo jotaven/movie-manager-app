@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:movie_manager/controller/movie_controller.dart';
+import 'package:movie_manager/data/dao/movie_dao_impl.dart';
 import 'package:movie_manager/models/movie.dart';
+import 'package:movie_manager/service/movie_service.dart';
+import 'movie_form.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
@@ -15,6 +19,27 @@ class MovieDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () async {
+              final result = await Navigator.push<bool>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => MovieForm(
+                    movieController: MovieController(
+                      movieService: MovieService(movieDao: MovieDaoImpl()),
+                    ),
+                    movie: movie,
+                  ),
+                ),
+              );
+              if (result == true && context.mounted) {
+                Navigator.pop(context, true); // retorna com sinal de que foi editado
+              }
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
