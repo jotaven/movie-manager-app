@@ -26,7 +26,7 @@ class MovieDaoImpl implements MovieDao {
   @override
   Future<List<Movie>> getAllMovies() async {
     final db = await dbHelper.database;
-    final List<Map<String, dynamic>> maps = await db.query(DatabaseHelper.tableMovies);
+    final List<Map<String, dynamic>> maps = await db.query(DatabaseHelper.tableMovies, orderBy: 'id DESC');
 
     return List.generate(maps.length, (i) {
       return Movie.fromMap(maps[i]);
